@@ -1,8 +1,7 @@
 var sessionHelper = {
   checkUser : function(req,res,next,destination){
     destination = destination || '/login';
-    console.log(req.session.cookie);
-    if (req.session.cookie){
+    if (req.session.user){
       next();
     } else {
       // console.log(req.session);
@@ -13,10 +12,8 @@ var sessionHelper = {
 
   generate : function(req,res,username,destination){
     destination = destination || '/';
-    req.session.regenerate(function(){
-      req.session.user = username;
-      res.redirect(destination);
-    });
+    req.session.user = username;
+    res.redirect(destination);
   },
 
   destroy: function(req,res,destination){
